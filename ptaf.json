@@ -29,13 +29,13 @@
         },
       "dnsLabelPrefix": {
           "type": "string",
-          "defaultValue": "ptaf-yoursdnsname",
+          "defaultValue": "ptaf-yourdnsname",
           "metadata": {
             "description": "DNS for PublicIPAddressName"
           }
         },
       "publicIPAddressName": {
-          "defaultValue": "ptafVM-ip",
+          "defaultValue": "ptaf-ip",
           "type": "string"
         },
       "vnetName": {
@@ -54,7 +54,7 @@
           "defaultValue": "ptaf-ni2",
           "type": "string"
         },
-      "authenticationtype": {
+      "authenticationType": {
             "type": "string",
             "metadata": {
                 "descritpion": "authentication type (key or password)"
@@ -170,7 +170,7 @@
               "name": "[parameters('storageAccountType')]"
                   },
           "kind": "Storage",
-            "properties": {}
+          "properties": {}
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
