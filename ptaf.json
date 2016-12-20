@@ -44,7 +44,7 @@
       },
       "storageAccountName": {
           "type": "string",
-          "defaultValue": "ptafstogare",
+          "defaultValue": "ptafstorage",
           "metadata": {
             "description": "Storage account name"
           }
