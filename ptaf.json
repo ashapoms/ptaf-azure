@@ -31,6 +31,17 @@
             "description": "User name for the Virtual Machine."
           }
         },
+      "newOrExistingStorageAccount": {
+        "type": "string",
+        "allowedValues": [
+            "new",
+            "existing"
+        ],
+        "defaultValue": "new",
+          "metadata": {
+            "description": "Use new to create new account and existing to reuse an existing one"
+          }
+      },
       "storageAccountName": {
           "type": "string",
           "defaultValue": "ptafstogare",
@@ -51,17 +62,6 @@
             "description": "Type of the azure storage account"
           }
         },
-      "newOrExistingStorageAccount": {
-        "type": "string",
-        "allowedValues": [
-            "new",
-            "existing"
-        ],
-        "defaultValue": "new",
-          "metadata": {
-            "description": "Use new to create new account and existing to reuse an existing one"
-          }
-      },
       "dnsLabelPrefix": {
           "type": "string",
           "defaultValue": "ptaf-yourdnsname",
