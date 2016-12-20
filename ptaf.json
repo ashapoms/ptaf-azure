@@ -12,6 +12,9 @@
       "virtualMachineSize": {
           "type": "string",
           "defaultValue": "Standard_A3",
+          "metadata": {
+              "description": "Size of the ptaf vm azure instance"
+          },
           "allowedValues": [
               "Standard_A3",
               "Standard_A4",
@@ -19,7 +22,7 @@
               "Standard_A7",
               "Standard_D3_v2",
               "Standard_D4_v2"
-          ],
+          ]
         },
       "adminUsername": {
           "type": "string",
@@ -49,7 +52,7 @@
           }
         },
       "newOrExistingStorageAccount": {
-        "type": "String",
+        "type": "string",
         "allowedValues": [
             "new",
             "existing"
@@ -103,14 +106,14 @@
         },
       "authenticationType": {
             "type": "string",
-            "metadata": {
-                "descritpion": "authentication type (key or password)"
-            },
-            "allowedvalues": [
+            "allowedValues": [
                 "sshpublickey",
                 "password"
             ],
-            "defaultvalue": "password"
+            "defaultValue": "password",
+            "metadata": {
+                "description": "authentication type (key or password)"
+            }
         },
         "sshKey": {
             "type": "string",
