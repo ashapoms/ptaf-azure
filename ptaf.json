@@ -4,11 +4,22 @@
   "parameters": {
       "virtualMachineName": {
           "type": "string",
-          "defaultValue": "ptaf-3.5.1-vm"
+          "defaultValue": "ptaf-vm",
+            "metadata": {
+            "description": "Ptaf vitrual machine name."
+          }
         },
       "virtualMachineSize": {
           "type": "string",
-          "defaultValue": "Standard_A3"
+          "defaultValue": "Standard_A3",
+          "allowedValues": [
+              "Standard_A3",
+              "Standard_A4",
+              "Standard_A6",
+              "Standard_A7",
+              "Standard_D3_v2",
+              "Standard_D4_v2"
+          ],
         },
       "adminUsername": {
           "type": "string",
@@ -18,41 +29,77 @@
           }
         },
       "storageAccountName": {
-          "type": "string"
+          "type": "string",
+          "defaultValue": "ptafstogare",
+          "metadata": {
+            "description": "Storage account name"
+          }
         },
       "storageAccountType": {
           "type": "string",
           "defaultValue": "Standard_LRS",
+          "allowedValues": [
+              "Standard_LRS",
+              "Standard_GRS",
+              "Standard_RAGRS",
+              "Premium_LRS"
+          ],
           "metadata": {
             "description": "Type of the azure storage account"
           }
         },
+      "newOrExistingStorageAccount": {
+        "type": "String",
+        "allowedValues": [
+            "new",
+            "existing"
+        ],
+        "defaultValue": "new",
+          "metadata": {
+            "description": "Use new to create new account and existing to reuse an existing one"
+          }
+      },
       "dnsLabelPrefix": {
           "type": "string",
           "defaultValue": "ptaf-yourdnsname",
           "metadata": {
-            "description": "DNS for PublicIPAddressName"
+            "description": "DNS for public ip adress"
           }
         },
       "publicIPAddressName": {
           "defaultValue": "ptaf-ip",
-          "type": "string"
+          "type": "string",
+          "metadata": {
+            "description": "name of public ip adress"
+          }
         },
       "vnetName": {
           "defaultValue": "ptaf-vnet",
-          "type": "string"
+          "type": "string",
+          "metadata": {
+            "description": "ptaf virtual network name"
+          }
         },
       "networkSecurityGroupName": {
           "defaultValue": "ptaf-nsg",
-          "type": "string"
+          "type": "string",
+          "metadata": {
+            "description": "ptaf network security group name"
+          }
         },
       "networkInterfaceName": {
-          "defaultValue": "ptaf-ni",
-          "type": "string"
+          "defaultValue": "ptaf-ni-wan",
+          "type": "string",
+          "metadata": {
+            "description": "ptaf network intarface name for WAN"
+          }
         },
       "secondNetworkInterfaceName": {
-          "defaultValue": "ptaf-ni2",
-          "type": "string"
+          "defaultValue": "ptaf-ni-lan",
+          "type": "string",
+          "metadata": {
+            "description": "ptaf network intarface name for LAN"
+          }
         },
       "authenticationType": {
             "type": "string",
@@ -69,12 +116,15 @@
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "rsa public key for ssh"
+              "description": "rsa public key for ssh"
             }
       },
       "adminPassword": {
           "type": "securestring",
-          "defaultValue": "P@ssw0rdP@ssw0rd"
+          "defaultValue": "P@ssw0rdP@ssw0rd",
+          "metadata": {
+              "description": "Password for admin username"
+          }
         }
     },
   "variables": {
@@ -88,7 +138,9 @@
      "imageOffer" : "ptaf-preview",
      "deploymentName": "ptaf-deploy",
      "extensionCommand": "/opt/waf/init.wsc",
+     "storageAccountExistingRG": "[resourceGroup().name]",
      "githubRoot": "https://raw.githubusercontent.com/capgelka/ptaf-azure/master/",
+     "storageAccountTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-storage-account-', parameters('newOrExistingStorageAccount'),'.json')]",
      "vmTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-vm-', parameters('authenticationType'),'.json')]"
   },
   "resources": [
@@ -161,17 +213,40 @@
           ]
         }
       },
-       {
-          "type": "Microsoft.Storage/storageAccounts",
-          "name": "[parameters('storageAccountName')]",
-          "apiVersion": "2016-01-01",
-          "location": "[resourceGroup().location]",
-          "sku": {
-              "name": "[parameters('storageAccountType')]"
-                  },
-          "kind": "Storage",
-          "properties": {}
-        },
+      {
+          "name": "storageAcountSetup",
+          "type": "Microsoft.Resources/deployments",
+          "apiVersion": "2015-01-01",
+          "properties" : {
+            "mode": "Incremental",
+            "templateLink" : {
+                "uri" : "[variables('storageAccountTemplateUrl')]",
+                "contentVersion": "1.0.0.0"
+            },
+            "parameters" : {
+                "storageAccountType": {
+                  "value": "[parameters('storageAccountType')]"
+                },
+                "storageAccountName" : {
+                  "value": "[parameters('storageAccountName')]"
+                },
+                "storageAccountExistingRG": {
+                  "value": "[variables('storageAccountExistingRG')]"
+                }
+              }
+            }
+       },
+       // {
+       //    "type": "Microsoft.Storage/storageAccounts",
+       //    "name": "[parameters('storageAccountName')]",
+       //    "apiVersion": "2016-01-01",
+       //    "location": "[resourceGroup().location]",
+       //    "sku": {
+       //        "name": "[parameters('storageAccountType')]"
+       //            },
+       //    "kind": "Storage",
+       //    "properties": {}
+       //  },
         {
             "type": "Microsoft.Network/publicIPAddresses",
             "name": "[parameters('publicIPAddressName')]",
@@ -277,7 +352,7 @@
             "apiVersion": "2015-01-01",
 
             "dependsOn": [
-               "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
+               "storageAcountSetup",
                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]",
                "[resourceId('Microsoft.Network/networkInterfaces', parameters('secondNetworkInterfaceName'))]"
             ],
