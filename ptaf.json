@@ -239,18 +239,7 @@
               }
             }
        },
-       // {
-       //    "type": "Microsoft.Storage/storageAccounts",
-       //    "name": "[parameters('storageAccountName')]",
-       //    "apiVersion": "2016-01-01",
-       //    "location": "[resourceGroup().location]",
-       //    "sku": {
-       //        "name": "[parameters('storageAccountType')]"
-       //            },
-       //    "kind": "Storage",
-       //    "properties": {}
-       //  },
-        {
+       {
             "type": "Microsoft.Network/publicIPAddresses",
             "name": "[parameters('publicIPAddressName')]",
             "apiVersion": "2016-03-30",
