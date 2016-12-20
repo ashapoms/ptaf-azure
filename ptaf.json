@@ -141,7 +141,6 @@
      "imageOffer" : "ptaf-preview",
      "deploymentName": "ptaf-deploy",
      "extensionCommand": "/opt/waf/init.wsc",
-     "storageAccountExistingRG": "[resourceGroup().name]",
      "githubRoot": "https://raw.githubusercontent.com/capgelka/ptaf-azure/master/",
      "storageAccountTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-storage-account-', parameters('newOrExistingStorageAccount'),'.json')]",
      "vmTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-vm-', parameters('authenticationType'),'.json')]"
@@ -232,9 +231,6 @@
                 },
                 "storageAccountName" : {
                   "value": "[parameters('storageAccountName')]"
-                },
-                "storageAccountExistingRG": {
-                  "value": "[variables('storageAccountExistingRG')]"
                 }
               }
             }
