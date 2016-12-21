@@ -153,7 +153,7 @@
       "authenticationType": "[basics('SSHCredntials').authenticationType]",
       "sshKey": "[basics('SSHCredntials').sshPublicKey]",
       "virtualMachineSize": "[steps('PtafConfig').virtualMachineSize]",
-      "vnetName": "[steps('envconfig').vnetSpec.name]"
+      "vnetName": "[steps('envconfig').vnetSpec]"
     }
   }
 }
