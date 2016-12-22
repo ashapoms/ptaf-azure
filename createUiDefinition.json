@@ -66,8 +66,8 @@
              "defaultValue": "ptaf-vnet",                      
              "constraints": {                            
                  "required": true,                             
-                 "regex": "^[a-z0-9A-Z]{1,10}$", 
-                 "validationMessage": "Only letters and numbers are allowed, and the value must be 1-10 characters long."                         
+                 "regex": "^[a-z0-9A-Z\\-_]{1,10}$", 
+                 "validationMessage": "Only letters, numbers and  are allowed, and the value must be 1-10 characters long."                         
                }
 	       }
             ]
@@ -112,7 +112,7 @@
         "toolTip": "VM name and hostname in resource group after deployment",
         "constraints": {
             "required": true,
-            "regex": "^[a-z0-9]{8,24}$",
+            "regex": "^[a-z0-9\\-_]{8,24}$",
             "validationMessage": "VM names must be between 8 and 24 characters long, and can contain only numbers and lowercase letters."
          }
        },
@@ -127,14 +127,15 @@
             ],
             "constraints": {
               "allowedSizes": [
-                "Standard_A3",
                 "Standard_A4",
                 "Standard_A6",
-                "Standard_A7"                  
+                "Standard_A7",
+                "Standard_D3_v2",
+                "Standard_D4_v2"                  
                 ]
             ,
             "defaultValue": {
-                "virtualMachineSize": "Standard_A3"
+                "virtualMachineSize": "Standard_A4"
               }
             },
 	    "osPlatform": "Linux",
