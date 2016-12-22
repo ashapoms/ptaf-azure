@@ -8,10 +8,10 @@
         "type": "Microsoft.Compute.UserNameTextBox",
         "label": "Username",
         "toolTip": "Admin username for PT Application Firewall",
-	"osPlatform": "Linux"
+	      "osPlatform": "Linux"
       },
       {
-        "name": "SSHCredntials",
+        "name": "SSHCredentials",
         "type": "Microsoft.Compute.CredentialsCombo",
         "label": {
                   "authenticationType": "Authentication type",
@@ -46,6 +46,10 @@
             {
                "name": "newStorageAccount",
                "type": "Microsoft.Storage.StorageAccountSelector",
+               "label": {                             
+                    "name": "Storage account name",
+                    "type": "Storage account type"                         
+                  },
                "label": "Storage Account Name",
                "defaultValue": {
                    "type": "Standard_LRS"
@@ -56,15 +60,16 @@
             },
 	         {
     	       "name": "vnetSpec",
-                   "type": "Microsoft.Network.VirtualNetworkCombo",
-                   "label": "PTAF virtual network",
-                   "options": {
-    		              "hideExisting" : false
-                   },
-                   "defaultValue": {
-                       "name": "ptaf-vnet"
-                   }
-	         }
+             "type": "Microsoft.Common.TextBox",
+             "label": "PTAF virtual network",
+             "toolTip": "Name of the virtual network to be created",
+             "defaultValue": "ptaf-vnet",                      
+             "constraints": {                            
+                 "required": true,                             
+                 "regex": "^[a-z0-9A-Z]{1,10}$", 
+                 "validationMessage": "Only letters and numbers are allowed, and the value must be 1-10 characters long."                         
+               }
+	       }
             ]
       },
       {
@@ -97,7 +102,7 @@
             },
             "options": {
                 "hideNone": true,
-		"hideExisting" : true
+		            "hideExisting" : true
             }
           },
        {
@@ -149,9 +154,9 @@
       "publicIPAddressName": "[steps('PtafConfig').dnsNameForPublicIP.publicIPAddressName]",
       "virtualMachineName": "[steps('PtafConfig').virtualMachineName]",
       "adminUsername": "[basics('adminUsername')]",
-      "adminPassword": "[basics('SSHCredntials').password]",
-      "authenticationType": "[basics('SSHCredntials').authenticationType]",
-      "sshKey": "[basics('SSHCredntials').sshPublicKey]",
+      "adminPassword": "[basics('SSHCredentials').password]",
+      "authenticationType": "[basics('SSHCredentials').authenticationType]",
+      "sshKey": "[basics('SSHCredentials').sshPublicKey]",
       "virtualMachineSize": "[steps('PtafConfig').virtualMachineSize]",
       "vnetName": "[steps('envconfig').vnetSpec]"
     }
