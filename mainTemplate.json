@@ -120,7 +120,7 @@
      "subnetName2": "default2",
      "imagePublisher": "ptsecurity",
      "imageSku" : "byol",
-     "imageOffer" : "ptaf-vmpreview",
+     "imageOffer" : "ptaf-vm-preview",
      "networkInterfaceName": "ptaf-ni-wan",
      "secondNetworkInterfaceName": "ptaf-ni-lan",
      "networkSecurityGroupName": "ptaf-nsg",

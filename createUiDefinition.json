@@ -141,7 +141,7 @@
       "osPlatform": "Linux",
             "imageReference": {
               "publisher": "ptsecurity",
-              "offer": "ptaf-preview",
+              "offer": "ptaf-vm-preview",
               "sku": "byol"
             }
           }

@@ -107,7 +107,7 @@
      "subnetName2": "default2",
      "imagePublisher": "ptsecurity",
      "imageSku" : "byol",
-     "imageOffer" : "ptaf-vmpreview",
+     "imageOffer" : "ptaf-vm-preview",
      "deploymentName": "ptaf-deploy",
      "vnetName": "ptaf-vnet",
      "networkInterfaceName": "ptaf-ni-wan",
