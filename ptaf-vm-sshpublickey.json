@@ -80,7 +80,7 @@
                  "osDisk": {
                     "name": "osdisk",
                     "vhd": {
-                        "uri": "[concat(concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2015-06-15').primaryEndpoints['blob'], 'vhds/'),  uniqueString(parameters('virtualMachineName'), deployment().name), '.vhd')]"
+                        "uri": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('vmName'), '-', parameters('imageOffer'), '-', parameters('imageSku'), '.vhd')]"
                     },
                   "createOption": "FromImage"
                   }
