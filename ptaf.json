@@ -59,6 +59,13 @@
             "description": "Type of the azure storage account"
           }
         },
+        "storageAccountExistingRG": {
+        "type": "string",
+        "defaultValue": "",
+        "metadata": {
+          "description": "Storage Account's Resource Group"
+        },
+      },
       "dnsLabelPrefix": {
           "type": "string",
           "defaultValue": "ptaf-yourdnsname",
@@ -100,7 +107,7 @@
      "subnetName2": "default2",
      "imagePublisher": "ptsecurity",
      "imageSku" : "byol",
-     "imageOffer" : "ptaf-preview",
+     "imageOffer" : "ptaf-vmpreview",
      "deploymentName": "ptaf-deploy",
      "vnetName": "ptaf-vnet",
      "networkInterfaceName": "ptaf-ni-wan",
@@ -198,6 +205,9 @@
                 },
                 "storageAccountName" : {
                   "value": "[parameters('storageAccountName')]"
+                },
+                "storageAccountExistingRG": {
+                  "value": "[parameters('storageAccountExistingRG')]"
                 }
               }
             }

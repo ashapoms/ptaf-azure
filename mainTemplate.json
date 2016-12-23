@@ -11,12 +11,11 @@
         },
       "virtualMachineSize": {
           "type": "string",
-          "defaultValue": "Standard_A3",
+          "defaultValue": "Standard_A4",
           "metadata": {
               "description": "Size of the ptaf vm azure instance"
           },
           "allowedValues": [
-              "Standard_A3",
               "Standard_A4",
               "Standard_A6",
               "Standard_A7",
@@ -59,6 +58,13 @@
             "description": "Type of the azure storage account"
           }
         },
+      "storageAccountExistingRG": {
+        "type": "string",
+        "defaultValue": "",
+        "metadata": {
+          "description": "Storage Account's Resource Group"
+          }
+      },
       "dnsLabelPrefix": {
           "type": "string",
           "defaultValue": "ptaf-yourdnsname",
@@ -78,27 +84,6 @@
           "type": "string",
           "metadata": {
             "description": "ptaf virtual network name"
-          }
-        },
-      "networkSecurityGroupName": {
-          "defaultValue": "ptaf-nsg",
-          "type": "string",
-          "metadata": {
-            "description": "ptaf network security group name"
-          }
-        },
-      "networkInterfaceName": {
-          "defaultValue": "ptaf-ni-wan",
-          "type": "string",
-          "metadata": {
-            "description": "ptaf network intarface name for WAN"
-          }
-        },
-      "secondNetworkInterfaceName": {
-          "defaultValue": "ptaf-ni-lan",
-          "type": "string",
-          "metadata": {
-            "description": "ptaf network intarface name for LAN"
           }
         },
       "authenticationType": {
@@ -135,7 +120,10 @@
      "subnetName2": "default2",
      "imagePublisher": "ptsecurity",
      "imageSku" : "byol",
-     "imageOffer" : "ptaf-preview",
+     "imageOffer" : "ptaf-vmpreview",
+     "networkInterfaceName": "ptaf-ni-wan",
+     "secondNetworkInterfaceName": "ptaf-ni-lan",
+     "networkSecurityGroupName": "ptaf-nsg",
      "deploymentName": "ptaf-deploy",
      "extensionCommand": "/opt/waf/init.wsc",
      "githubRoot": "https://raw.githubusercontent.com/capgelka/ptaf-azure/master/",
@@ -228,6 +216,9 @@
                 },
                 "storageAccountName" : {
                   "value": "[parameters('storageAccountName')]"
+                },
+                "storageAccountExistingRG": {
+                  "value": "[parameters('storageAccountExistingRG')]"
                 }
               }
             }
