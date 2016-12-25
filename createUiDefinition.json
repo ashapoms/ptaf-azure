@@ -46,10 +46,6 @@
             {
                "name": "newStorageAccount",
                "type": "Microsoft.Storage.StorageAccountSelector",
-               "label": {                             
-                    "name": "Storage account name",
-                    "type": "Storage account type"                         
-                  },
                "label": "Storage Account Name",
                "defaultValue": {
                    "type": "Standard_LRS"
