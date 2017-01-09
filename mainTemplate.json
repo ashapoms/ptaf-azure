@@ -134,7 +134,7 @@
     {
         "apiVersion": "2015-06-15",
         "type": "Microsoft.Network/networkSecurityGroups",
-        "name": "[parameters('networkSecurityGroupName')]",
+        "name": "[variables('networkSecurityGroupName')]",
         "location": "[resourceGroup().location]",
         "tags": {
           "displayName": "Network Security Group"
@@ -276,7 +276,7 @@
         },
         {
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[parameters('networkInterfaceName')]",
+            "name": "[variables('networkInterfaceName')]",
             "apiVersion": "2016-03-30",
             "location": "[resourceGroup().location]",
             "dependsOn": [
@@ -302,7 +302,7 @@
         },
         {
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[parameters('secondNetworkInterfaceName')]",
+            "name": "[variables('secondNetworkInterfaceName')]",
             "apiVersion": "2016-03-30",
             "location": "[resourceGroup().location]",
             "dependsOn": [
@@ -329,8 +329,8 @@
 
             "dependsOn": [
                "storageAcountSetup",
-               "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]",
-               "[resourceId('Microsoft.Network/networkInterfaces', parameters('secondNetworkInterfaceName'))]"
+               "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]",
+               "[resourceId('Microsoft.Network/networkInterfaces', variables('secondNetworkInterfaceName'))]"
             ],
             "properties": {
               "mode": "Incremental",
@@ -355,10 +355,10 @@
                     "value": "[variables('imagePublisher')]"
                   },
                   "networkInterfaceName": {
-                    "value": "[parameters('networkInterfaceName')]"
+                    "value": "[variables('networkInterfaceName')]"
                   },
                   "secondNetworkInterfaceName": {
-                    "value": "[parameters('secondNetworkInterfaceName')]"
+                    "value": "[variables('secondNetworkInterfaceName')]"
                   },
                   "virtualMachineSize": {
                     "value": "[parameters('virtualMachineSize')]"
