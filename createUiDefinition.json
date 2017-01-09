@@ -150,6 +150,7 @@
       "newOrExistingStorageAccount" : "[steps('envconfig').newStorageAccount.newOrExisting]",
       "storageAccountExistingRG": "[steps('envconfig').newStorageAccount.resourceGroup]",
       "publicIPAddressName": "[steps('PtafConfig').dnsNameForPublicIP.publicIPAddressName]",
+      "dnsLabelPrefix": "[steps('PtafConfig').dnsNameForPublicIP.domainNameLabel]",
       "virtualMachineName": "[steps('PtafConfig').virtualMachineName]",
       "adminUsername": "[basics('adminUsername')]",
       "adminPassword": "[basics('SSHCredentials').password]",
