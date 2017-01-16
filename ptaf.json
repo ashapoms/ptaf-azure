@@ -64,7 +64,7 @@
         "defaultValue": "",
         "metadata": {
           "description": "Storage Account's Resource Group"
-        },
+        }
       },
       "dnsLabelPrefix": {
           "type": "string",
@@ -97,6 +97,12 @@
           "metadata": {
               "description": "Password for admin username"
           }
+        },
+     "vhdUri": {
+            "type": "string",
+            "metadata": {
+              "description": "uri of the vhd in your storage account"
+          }
         }
     },
   "variables": {
@@ -105,17 +111,14 @@
      "subnetPrefix1": "10.0.0.0/24",
      "subnetPrefix2": "10.0.1.0/24",
      "subnetName2": "default2",
-     "imagePublisher": "ptsecurity",
-     "imageSku" : "byol",
-     "imageOffer" : "ptaf-vm-preview",
-     "deploymentName": "ptaf-deploy",
      "vnetName": "ptaf-vnet",
+     "deploymentName": "ptaf-deploy",
      "networkInterfaceName": "ptaf-ni-wan",
      "secondNetworkInterfaceName": "ptaf-ni-lan",
      "networkSecurityGroupName": "ptaf-nsg",
      "publicIPAddressName": "ptaf-ip",
      "extensionCommand": "/opt/waf/init.wsc",
-     "githubRoot": "https://raw.githubusercontent.com/capgelka/ptaf-azure/master/",
+     "githubRoot": "https://raw.githubusercontent.com/capgelka/ptaf-azure/custom-vhd/",
      "storageAccountTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-storage-account-', parameters('newOrExistingStorageAccount'),'.json')]",
      "vmTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-vm-', parameters('authenticationType'),'.json')]"
   },
@@ -334,15 +337,6 @@
                   "virtualMachineName": {
                     "value": "[parameters('virtualMachineName')]"
                   },
-                  "imageSku": {
-                    "value": "[variables('imageSku')]"
-                  },
-                  "imageOffer": {
-                    "value": "[variables('imageOffer')]"
-                  },
-                  "imagePublisher": {
-                    "value": "[variables('imagePublisher')]"
-                  },
                   "networkInterfaceName": {
                     "value": "[variables('networkInterfaceName')]"
                   },
@@ -360,6 +354,9 @@
                   },
                   "sshKey": {
                     "value": "[parameters('sshKey')]"
+                  },
+                  "vhdUri": {
+                    "value": "[parameters('vhdUri')]"
                   }
               }
           }

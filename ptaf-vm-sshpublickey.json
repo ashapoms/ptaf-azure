@@ -8,15 +8,6 @@
     "storageAccountName":{
       "type": "string"
     },
-    "imageSku": {
-      "type": "string"
-    },
-    "imageOffer": {
-      "type": "string"
-    },
-    "imagePublisher": {
-      "type": "string"
-    },
     "networkInterfaceName": {
       "type": "string"
     },
@@ -34,6 +25,9 @@
     },
     "sshKey": {
       "type": "string"
+    },
+    "vhdUri": {
+      "type": "string"
     }
   },
   "variables": {
@@ -46,11 +40,6 @@
         "type": "Microsoft.Compute/virtualMachines",
         "name": "[parameters('virtualMachineName')]",
         "location": "[resourceGroup().location]",
-        "plan": {
-           "name": "[parameters('imageSku')]",
-           "product": "[parameters('imageOffer')]",
-           "publisher": "[parameters('imagePublisher')]"
-       },
         "properties": {
               "osProfile": {
                   "computerName": "[parameters('virtualMachineName')]",
@@ -71,19 +60,18 @@
                   "vmSize": "[parameters('virtualMachineSize')]"
                 },
               "storageProfile": {
-                 "imageReference": {
-                    "publisher": "[parameters('imagePublisher')]",
-                    "offer": "[parameters('imageOffer')]",
-                    "sku": "[parameters('imageSku')]",
-                    "version": "latest"
-                  },
-                 "osDisk": {
-                    "name": "osdisk",
-                    "vhd": {
-                        "uri": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/vhds/', parameters('virtualMachineName'), '-', parameters('imageOffer'), '-', parameters('imageSku'), '.vhd')]"
+                  "osDisk": {
+                      "osType": "Linux",
+                      "name": "ptaf3.5.1",
+                      "vhd": {
+                          "uri": "[concat(concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2015-06-15').primaryEndpoints['blob'], 'vhds/'),  uniqueString(parameters('virtualMachineName'), deployment().name), '.vhd')]"
+                        },
+                      "image": {
+                          "uri": "[parameters('vhdUri')]"
+                        },
+                      "createOption": "FromImage"
                     },
-                  "createOption": "FromImage"
-                  }
+                  "dataDisks": []
               },
               "networkProfile": {
                   "networkInterfaces": [
