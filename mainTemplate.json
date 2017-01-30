@@ -202,6 +202,20 @@
                 "priority": 103,
                 "direction": "Inbound"
               }
+            },
+            {
+              "name": "graphite-rule",
+              "properties": {
+                "description": "Allow graphite from virtual network",
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "8082",
+                "sourceAddressPrefix": "[variables('addressPrefix')]",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 105,
+                "direction": "Inbound"
+              }
             }
           ]
         }
