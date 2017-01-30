@@ -16,6 +16,9 @@
               "description": "Size of the ptaf vm azure instance"
           },
           "allowedValues": [
+              "Standard_F4",
+              "Standard_F8",
+              "Standard_F16",
               "Standard_A4",
               "Standard_A6",
               "Standard_A7",
