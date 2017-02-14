@@ -117,9 +117,11 @@
      "secondNetworkInterfaceName": "ptaf-ni-lan",
      "networkSecurityGroupName": "ptaf-nsg",
      "publicIPAddressName": "ptaf-ip",
-     "extensionCommand": "sh -c './network_settings.sh && /opt/waf/init.wsc'",
      "githubRoot": "https://raw.githubusercontent.com/capgelka/ptaf-azure/custom-vhd/",
-     "commandsUris": ["[concat(variables('githubRoot'), '/scripts/network_settings.sh')]"],
+     "singleQuote": "'",
+     "extensionCommand": "[concat('sh -c ', variables('singleQuote'), './network_settings.sh ', parameters('virtualMachineName'), ' && ./init.wsc', variables('singleQuote'))]",
+     "commandsUris": ["[concat(variables('githubRoot'), '/scripts/network_settings.sh')]",
+                      "[concat(variables('githubRoot'), '/scripts/init.wsc')]"],
      "storageAccountTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-storage-account-', parameters('newOrExistingStorageAccount'),'.json')]",
      "vmTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-vm-', parameters('authenticationType'),'.json')]"
   },
@@ -187,6 +189,20 @@
                 "destinationAddressPrefix": "*",
                 "access": "Allow",
                 "priority": 103,
+                "direction": "Inbound"
+              }
+            },
+            {
+              "name": "graphite-rule",
+              "properties": {
+                "description": "Allow graphite from virtual network",
+                "protocol": "Tcp",
+                "sourcePortRange": "*",
+                "destinationPortRange": "8082",
+                "sourceAddressPrefix": "[variables('addressPrefix')]",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 105,
                 "direction": "Inbound"
               }
             }
@@ -371,7 +387,7 @@
                 "[concat('Microsoft.Resources/deployments/', variables('deploymentName'))]"
             ],
             "properties": {
-                "publisher": "Microsoft.OSTCExtensions", 
+                "publisher": "Microsoft.OSTCExtensions",
                 "type": "CustomScriptForLinux",
                 "typeHandlerVersion": "1.5",
                 "autoUpgradeMinorVersion": true,
