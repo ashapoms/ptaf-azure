@@ -41,7 +41,7 @@
         "sshKeyPath": "[concat('/home/',parameters('adminUserName'),'/.ssh/authorized_keys')]"
   },
   "resources": [
-    {     
+    {
         "apiVersion": "[variables('apiVersion')]",
         "type": "Microsoft.Compute/virtualMachines",
         "name": "[parameters('virtualMachineName')]",
@@ -92,9 +92,9 @@
                           "properties": {
                               "primary": true
                             }
-                        },     
-                        { 
-                            "properties": {
+                        },
+                        {
+                          "properties": {
                               "primary": false
                             },
                           "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('secondNetworkInterfaceName'))]"

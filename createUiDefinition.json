@@ -1,5 +1,5 @@
 {
-  "handler": "Microsoft.Compute.MultiVm", 
+  "handler": "Microsoft.Compute.MultiVm",
   "version": "0.0.1-preview",
   "parameters": {
     "basics": [
@@ -59,11 +59,11 @@
              "type": "Microsoft.Common.TextBox",
              "label": "PTAF virtual network",
              "toolTip": "Name of the virtual network to be created",
-             "defaultValue": "ptaf-vnet",                      
-             "constraints": {                            
-                 "required": true,                             
-                 "regex": "^[a-z0-9A-Z\\-_]{3,15}$", 
-                 "validationMessage": "Only letters, numbers, hyphens and underscores are allowed, and the value must be 3-15 characters long."                         
+             "defaultValue": "ptaf-vnet",
+             "constraints": {
+                 "required": true,
+                 "regex": "^[a-z0-9A-Z\\-_]{3,15}$",
+                 "validationMessage": "Only letters, numbers, hyphens and underscores are allowed, and the value must be 3-15 characters long."
                }
          }
             ]

@@ -7,5 +7,3 @@ echo -e $HOSTNAME > /etc/hostname
 echo -e '127.0.0.1 localhost' > /etc/hosts
 echo -e $IP $HOSTNAME >> /etc/hosts
 /etc/init.d/hostname.sh
-
-rm /opt/waf/conf/wsc/config.sqlite3
