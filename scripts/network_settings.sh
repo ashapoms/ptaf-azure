@@ -7,9 +7,8 @@ if [ -n "$SEARCH" ]; then
 fi
 
 HOSTNAME=$1
-IP=$(ifconfig eth0 | grep 'inet addr' | xargs | awk -F '[: ]' '{{print $3}}')
 
-wsc <<EOF
+/usr/local/bin/wsc <<EOF
 output automation
 
 if alias lo 0
