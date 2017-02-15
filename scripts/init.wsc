@@ -1,5 +1,7 @@
 #!/usr/local/bin/wsc
 
+output automation
+
 if mode eth0 dhcp
 if mode eth1 dhcp
 
