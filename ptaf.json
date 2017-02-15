@@ -118,10 +118,9 @@
      "networkSecurityGroupName": "ptaf-nsg",
      "publicIPAddressName": "ptaf-ip",
      "singleQuote": "'",
-     "extensionCommand": "[concat('sh -c ', variables('singleQuote'), './network_settings.sh ', parameters('virtualMachineName'), ' && ./init.wsc', variables('singleQuote'))]",
+     "extensionCommand": "[concat('sh -c ', variables('singleQuote'), './network_settings.sh ', parameters('virtualMachineName'), variables('singleQuote'))]",
      "githubRoot": "https://raw.githubusercontent.com/capgelka/ptaf-azure/master/",
-     "commandsUris": ["[concat(variables('githubRoot'), '/scripts/network_settings.sh')]",
-                      "[concat(variables('githubRoot'), '/scripts/init.wsc')]"],
+     "commandsUris": ["[concat(variables('githubRoot'), '/scripts/network_settings.sh')]"],
      "storageAccountTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-storage-account-', parameters('newOrExistingStorageAccount'),'.json')]",
      "vmTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-vm-', parameters('authenticationType'),'.json')]"
   },

@@ -1,12 +1,3 @@
-#!/usr/local/bin/wsc
+#!/bin/bash
 
-output automation
-
-if mode eth0 dhcp
-if mode eth1 dhcp
-
-if mark eth0
-if mark eth1
-
-config commit
-config sync
+echo 'ok'
