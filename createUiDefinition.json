@@ -46,13 +46,7 @@
             {
                "name": "newStorageAccount",
                "type": "Microsoft.Storage.StorageAccountSelector",
-               "label": "Storage Account Name",
-               "defaultValue": {
-                   "type": "Standard_LRS"
-               },
-               "constraints": {
-                   "allowedTypes": ["Standard_LRS"]
-               }
+               "label": "Storage Account Name"
             },
            {
              "name": "vnetSpec",
