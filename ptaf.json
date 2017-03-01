@@ -110,7 +110,7 @@
      "subnetName2": "default2",
      "imagePublisher": "ptsecurity",
      "imageSku" : "byol",
-     "imageOffer" : "ptaf-vm-preview",
+     "imageOffer" : "ptaf-vm",
      "deploymentName": "ptaf-deploy",
      "vnetName": "ptaf-vnet",
      "networkInterfaceName": "ptaf-ni-wan",
@@ -119,7 +119,7 @@
      "publicIPAddressName": "ptaf-ip",
      "singleQuote": "'",
      "extensionCommand": "[concat('sh -c ', variables('singleQuote'), './network_settings.sh ', parameters('virtualMachineName'), variables('singleQuote'))]",
-     "githubRoot": "https://raw.githubusercontent.com/capgelka/ptaf-azure/master/",
+     "githubRoot": "https://raw.githubusercontent.com/capgelka/ptaf-azure/release-3.5.1/",
      "commandsUris": ["[concat(variables('githubRoot'), '/scripts/network_settings.sh')]"],
      "storageAccountTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-storage-account-', parameters('newOrExistingStorageAccount'),'.json')]",
      "vmTemplateUrl": "[concat(variables('githubRoot'), '/ptaf-vm-', parameters('authenticationType'),'.json')]"
