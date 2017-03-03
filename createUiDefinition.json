@@ -7,6 +7,7 @@
         "name": "adminUsername",
         "type": "Microsoft.Compute.UserNameTextBox",
         "label": "Username",
+        "defaultValue": "pt",
         "toolTip": "Admin username for PT Application Firewall",
         "osPlatform": "Linux"
       },
@@ -24,14 +25,14 @@
                 "password": "",
                 "sshPublicKey": ""
               },
-         "constraints": {
+        "constraints": {
                 "required": true
               },
-         "options": {
+        "options": {
               "hideConfirmation": false
          },
-   "osPlatform": "Linux"
-       }
+        "osPlatform": "Linux"
+      }
     ],
     "steps": [
       {
@@ -57,16 +58,16 @@
            {
              "name": "vnetSpec",
              "type": "Microsoft.Common.TextBox",
-             "label": "PTAF virtual network",
+             "label": "PT Application Firewall virtual network name",
              "toolTip": "Name of the virtual network to be created",
              "defaultValue": "ptaf-vnet",
              "constraints": {
                  "required": true,
                  "regex": "^[a-z0-9A-Z\\-_]{3,15}$",
                  "validationMessage": "Only letters, numbers, hyphens and underscores are allowed, and the value must be 3-15 characters long."
-               }
-         }
-            ]
+              }
+            }
+        ]
       },
       {
         "name": "PtafConfig",
@@ -86,8 +87,8 @@
             },
             "constraints": {
               "required": {
-                       "domainNameLabel": true
-                     }
+                 "domainNameLabel": true
+               }
             },
             "toolTip": {
                 "domainNameLabel": "Unique DNS name prefix for public IP of WAN interface (eth0)"
@@ -116,7 +117,7 @@
             "name": "virtualMachineSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Virtual machine size",
-            "toolTip": "Size of Azure virtual machine to provision for VM-Series",
+            "toolTip": "Size of Azure virtual machine to provision for PT Application Firewall",
             "recommendedSizes": [
               "Standard_F4",
               "Standard_F8",
@@ -133,12 +134,8 @@
                 "Standard_F8",
                 "Standard_F16"
                 ]
-            ,
-            "defaultValue": {
-                "virtualMachineSize": "Standard_A4"
-              }
             },
-      "osPlatform": "Linux",
+            "osPlatform": "Linux",
             "imageReference": {
               "publisher": "ptsecurity",
               "offer": "ptaf-vm-preview",
