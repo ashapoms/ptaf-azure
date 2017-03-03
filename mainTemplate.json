@@ -92,7 +92,7 @@
       "authenticationType": {
             "type": "string",
             "allowedValues": [
-                "sshpublickey",
+                "sshPublicKey",
                 "password"
             ],
             "defaultValue": "password",
