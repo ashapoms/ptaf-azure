@@ -76,8 +76,8 @@
           "type": "string",
           "metadata": {
             "description": "name of public ip adress"
-          }
-        },
+        }
+      },
       "authenticationType": {
             "type": "string",
             "allowedValues": [
@@ -122,6 +122,7 @@
      "imagePublisher": "ptsecurity",
      "imageSku" : "byol",
      "imageOffer" : "ptaf-vm",
+     "publicIPAddressType": "Static",
      "networkInterfaceName": "ptaf-ni-wan",
      "secondNetworkInterfaceName": "ptaf-ni-lan",
      "networkSecurityGroupName": "ptaf-nsg",
@@ -248,7 +249,7 @@
             "apiVersion": "2016-03-30",
             "location": "[parameters('location')]",
             "properties": {
-                "publicIPAllocationMethod": "Static",
+                "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
                 "dnsSettings": {
                     "domainNameLabel": "[parameters('dnsLabelPrefix')]"
                  }
