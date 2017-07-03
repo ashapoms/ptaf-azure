@@ -9,7 +9,7 @@ fi
 HASPLM_CONFIG=/etc/hasplm/hasplm.ini
 HOSTNAME=$1
 
-cat <<EOF >> "${HASPLM_CONFIG}" 
+cat <<EOF > "${HASPLM_CONFIG}" 
 [REMOTE]
 broadcastsearch = 1
 aggressive = 1
@@ -20,11 +20,7 @@ EOF
 
 /usr/local/bin/wsc -e <<EOF
 
-if alias lo 0
-if set lo:0 inet_address 192.168.40.40
-if set lo:0 inet_netmask 255.255.255.255
-
-host add 192.168.40.40 $HOSTNAME
+host add 127.0.1.1 $HOSTNAME
 hostname $HOSTNAME
 
 if mode eth0 dhcp
