@@ -121,7 +121,7 @@
      "subnetName2": "default2",
      "imagePublisher": "ptsecurity",
      "imageSku" : "byol",
-     "imageOffer" : "ptaf-vm",
+     "imageOffer" : "ptaf-vm-preview",
      "publicIPAddressType": "Static",
      "networkInterfaceName": "ptaf-ni-wan",
      "secondNetworkInterfaceName": "ptaf-ni-lan",
