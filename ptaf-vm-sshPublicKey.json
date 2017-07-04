@@ -78,7 +78,7 @@
                     "publisher": "[parameters('imagePublisher')]",
                     "offer": "[parameters('imageOffer')]",
                     "sku": "[parameters('imageSku')]",
-                    "version": "latest"
+                    "version": "3.6.2"
                   },
                  "osDisk": {
                     "name": "osdisk",
