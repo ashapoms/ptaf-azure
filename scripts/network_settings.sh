@@ -1,13 +1,18 @@
 #!/bin/bash
 
+HASPLM_CONFIG=/etc/hasplm/hasplm.ini
+HOSTNAME=$1
+MONGOD_CONFIG=/etc/mongod.conf
+
 #delete azcesd if exists
-SEARCH=$(apt-cache search azure-security)
-if [ -n "$SEARCH" ]; then
+if [ -n "$(apt-cache search azure-security)" ]; then
     apt-get purge -y azure-security
 fi
 
-HASPLM_CONFIG=/etc/hasplm/hasplm.ini
-HOSTNAME=$1
+
+sed -i "s/bind_ip = kickstat,127.0.0.1/bind_ip = ${HOSTNAME},127.0.0.1/g" "${MONGOD_CONFIG}"
+monit -I restart mongod
+
 
 cat <<EOF > "${HASPLM_CONFIG}" 
 [REMOTE]
