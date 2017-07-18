@@ -20,6 +20,9 @@
     "imagePublisher": {
       "type": "string"
     },
+    "imageVersion": {
+      "type": "string"
+    },
     "networkInterfaceName": {
       "type": "string"
     },
@@ -78,7 +81,7 @@
                     "publisher": "[parameters('imagePublisher')]",
                     "offer": "[parameters('imageOffer')]",
                     "sku": "[parameters('imageSku')]",
-                    "version": "3.6.2"
+                    "version": "[parameters('imageVersion')]"
                   },
                  "osDisk": {
                     "name": "osdisk",
