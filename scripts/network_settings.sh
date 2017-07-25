@@ -22,6 +22,7 @@ serversearchinterval = 30
 serveraddr = ptaf-license.ptsecurity.com
 EOF
 
+service aksusbd restart
 
 /usr/local/bin/wsc -e <<EOF
 
@@ -42,3 +43,6 @@ config commit
 config sync
 
 EOF
+
+echo 'db.gateways.update({"active": false}, {$set:{"active": true})' \
+    | mongo waf -u root -p $(wsc -c "password list") --authenticationDatabase admin
