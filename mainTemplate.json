@@ -122,7 +122,7 @@
      "imagePublisher": "ptsecurity",
      "imageSku" : "byol",
      "imageOffer" : "ptaf-vm-preview",
-     "imageVersion": "3.6.2",
+     "imageVersion": "3.6.3",
      "publicIPAddressType": "Static",
      "networkInterfaceName": "ptaf-ni-wan",
      "secondNetworkInterfaceName": "ptaf-ni-lan",
