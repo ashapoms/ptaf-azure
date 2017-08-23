@@ -103,6 +103,66 @@
               "description": "Password for admin username"
           }
       },
+      "newOrExistingVirtualNetwork": {
+          "type": "string",
+          "allowedValues": [
+            "new",
+            "existing"
+        ],
+        "defaultValue": "new",
+          "metadata": {
+            "description": "Use new to create new virtualNetwork and existing to reuse an existing one"
+          }
+      },
+      "virtualNetworkExistingRG": {
+        "type": "string",
+        "defaultValue": "",
+        "metadata": {
+          "description": "virtualNetwork Account's Resource Group"
+          }
+      },
+      "vnetName": {
+          "type": "string",
+          "defaultValue": "ptaf-vnet",
+          "metadata": {
+            "description": "virtual network name"
+          }
+      },
+      "vnetMask": {
+          "type": "string",
+          "defaultValue": "10.0.0.0/16",
+          "metadata": {
+            "description": "virtual network mask"
+          }
+      },
+      "wanAddressPrefix": {
+          "type": "string",
+          "defaultValue": "10.0.0.0/24",
+          "metadata": {
+            "description": "wan subnet mask"
+          }
+      },
+      "lanAddressPrefix": {
+          "type": "string",
+          "defaultValue": "10.0.1.0/24",
+          "metadata": {
+            "description": "lan subnet mask"
+          }
+      },
+      "lanName": {
+          "type": "string",
+          "defaultValue": "LAN",
+          "metadata": {
+            "description": "lan subnet name"
+          }
+      },
+      "wanName": {
+          "type": "string",
+          "defaultValue": "WAN",
+          "metadata": {
+            "description": "wan subnet mask"
+          }
+      },
       "baseUrl": {
         "type": "string",
         "metadata": {
@@ -113,12 +173,6 @@
       }
     },
   "variables": {
-     "vnetName": "ptaf-vnet",
-     "addressPrefix": "10.0.0.0/16",
-     "subnetName1": "default1",
-     "subnetPrefix1": "10.0.0.0/24",
-     "subnetPrefix2": "10.0.1.0/24",
-     "subnetName2": "default2",
      "imagePublisher": "ptsecurity",
      "imageSku" : "byol",
      "imageOffer" : "ptaf-vm",
@@ -130,6 +184,7 @@
      "extensionCommand": "[concat('sh -c ', variables('singleQuote'), './network_settings.sh ', parameters('virtualMachineName'), variables('singleQuote'))]",
      "commandsUris": ["[concat(parameters('baseUrl'), '/scripts/network_settings.sh')]"],
      "storageAccountTemplateUrl": "[concat(parameters('baseUrl'), '/ptaf-storage-account-', parameters('newOrExistingStorageAccount'),'.json')]",
+     "virtualNetworkTemplateUrl": "[concat(parameters('baseUrl'), '/ptaf-network-', parameters('newOrExistingVirtualNetwork'),'.json')]",
      "vmTemplateUrl": "[concat(parameters('baseUrl'), '/ptaf-vm-', parameters('authenticationType'),'.json')]"
   },
   "resources": [
@@ -206,7 +261,7 @@
                 "protocol": "Tcp",
                 "sourcePortRange": "*",
                 "destinationPortRange": "8082",
-                "sourceAddressPrefix": "[variables('addressPrefix')]",
+                "sourceAddressPrefix": "[parameters('vnetMask')]",
                 "destinationAddressPrefix": "*",
                 "access": "Allow",
                 "priority": 105,
@@ -215,7 +270,7 @@
             }
           ]
         }
-      },
+    },
       {
           "name": "storageAcountSetup",
           "type": "Microsoft.Resources/deployments",
@@ -265,7 +320,7 @@
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
-                        "[variables('addressPrefix')]"
+                        "[parameters('vnetMask')]"
                     ]
                 },
                 "dhcpOptions": {
@@ -273,18 +328,18 @@
                 },
                 "subnets": [
                     {
-                        "name": "[variables('subnetName1')]",
+                        "name": "[properties('wanName')]",
                         "properties": {
-                            "addressPrefix": "[variables('subnetPrefix1')]",
+                            "addressPrefix": "[properties('wanAddressPrefix')]",
                             "networkSecurityGroup": {
                                 "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
                             }
                         }
                     },
                     {
-                        "name": "[variables('subnetName2')]",
+                        "name": "[parameters('lanName')]",
                         "properties": {
-                            "addressPrefix": "[variables('subnetPrefix2')]",
+                            "addressPrefix": "[parameters('lanAddressPrefix')]",
                             "networkSecurityGroup": {
                                 "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
                             }
@@ -312,7 +367,7 @@
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddressName'))]"
                             },
                             "subnet": {
-                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('vnetName')), '/subnets/', variables('subnetName1'))]"
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('vnetName')), '/subnets/', properties('wanName'))]"
                             }
                         }
                     }
@@ -334,7 +389,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "subnet": {
-                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('vnetName')), '/subnets/', variables('subnetName2'))]"
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('vnetName')), '/subnets/', parameters('lanName'))]"
                             }
                         }
                     }
