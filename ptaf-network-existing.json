@@ -77,19 +77,13 @@
                     {
                         "name": "[parameters('wanName')]",
                         "properties": {
-                            "addressPrefix": "[parameters('wanAddressPrefix')]",
-                            "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
-                            }
+                            "addressPrefix": "[parameters('wanAddressPrefix')]"
                         }
                     },
                     {
                         "name": "[parameters('lanName')]",
                         "properties": {
-                            "addressPrefix": "[parameters('lanAddressPrefix')]",
-                            "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
-                            }
+                            "addressPrefix": "[parameters('lanAddressPrefix')]"
                         }
                     }
                 ]
