@@ -309,43 +309,107 @@
                  }
             }
         },
+        // {
+        //     "type": "Microsoft.Network/virtualNetworks",
+        //     "name": "[variables('vnetName')]",
+        //     "apiVersion": "2016-03-30",
+        //     "location": "[parameters('location')]",
+        //     "dependsOn": [
+        //         "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]"
+        //     ],
+        //     "properties": {
+        //         "addressSpace": {
+        //             "addressPrefixes": [
+        //                 "[parameters('vnetMask')]"
+        //             ]
+        //         },
+        //         "dhcpOptions": {
+        //             "dnsServers": []
+        //         },
+        //         "subnets": [
+        //             {
+        //                 "name": "[properties('wanName')]",
+        //                 "properties": {
+        //                     "addressPrefix": "[properties('wanAddressPrefix')]",
+        //                     "networkSecurityGroup": {
+        //                         "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+        //                     }
+        //                 }
+        //             },
+        //             {
+        //                 "name": "[parameters('lanName')]",
+        //                 "properties": {
+        //                     "addressPrefix": "[parameters('lanAddressPrefix')]",
+        //                     "networkSecurityGroup": {
+        //                         "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+        //                     }
+        //                 }
+        //             }
+        //         ]
+        //     }
+        // },
         {
-            "type": "Microsoft.Network/virtualNetworks",
-            "name": "[variables('vnetName')]",
-            "apiVersion": "2016-03-30",
-            "location": "[parameters('location')]",
+            "name": "virtualNetworkSetup",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
             "dependsOn": [
                 "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]"
             ],
             "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "[parameters('vnetMask')]"
-                    ]
-                },
-                "dhcpOptions": {
-                    "dnsServers": []
-                },
-                "subnets": [
-                    {
-                        "name": "[properties('wanName')]",
-                        "properties": {
-                            "addressPrefix": "[properties('wanAddressPrefix')]",
-                            "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
-                            }
-                        }
-                    },
-                    {
-                        "name": "[parameters('lanName')]",
-                        "properties": {
-                            "addressPrefix": "[parameters('lanAddressPrefix')]",
-                            "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
-                            }
-                        }
-                    }
-                ]
+              "templateLink": {
+                "uri": "[variables('virtualNetworkTemplateUrl')]",
+                "contentVersion": "1.0.0.0"
+              },
+              "mode": "Incremental",
+              "parameters": {
+                  "location": {
+                    "value": "[parameters('location')]"
+                  },
+                  "networkSecurityGroupName": {
+                    "value": "[variables('networkSecurityGroupName')]"
+                  },
+                  "virtualNetworkExistingRG": {
+                     "value": "[parameters('virtualNetworkExistingRG')]"
+                  },
+                  "vnetName": {
+                      "value": "[parameters('virtualNetworkExistingRG')]"
+                  },
+                  "vnetMask": {
+                      "type": "string",
+                      "defaultValue": "10.0.0.0/16",
+                      "metadata": {
+                        "description": "virtual network mask"
+                      }
+                  },
+                  "wanAddressPrefix": {
+                      "type": "string",
+                      "defaultValue": "10.0.0.0/24",
+                      "metadata": {
+                        "description": "wan subnet mask"
+                      }
+                  },
+                  "lanAddressPrefix": {
+                      "type": "string",
+                      "defaultValue": "10.0.1.0/24",
+                      "metadata": {
+                        "description": "lan subnet mask"
+                      }
+                  },
+                  "lanName": {
+                      "type": "string",
+                      "defaultValue": "LAN",
+                      "metadata": {
+                        "description": "lan subnet name"
+                      }
+                  },
+                  "wanName": {
+                      "type": "string",
+                      "defaultValue": "WAN",
+                      "metadata": {
+                        "description": "wan subnet mask"
+                      }
+                  },
+              }
             }
         },
         {
@@ -355,7 +419,7 @@
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddressName'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetName'))]"
+                "virtualNetworkSetup"
             ],
             "properties": {
                 "ipConfigurations": [
