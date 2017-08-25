@@ -23,10 +23,10 @@
     "imageVersion": {
       "type": "string"
     },
-    "networkInterfaceName": {
+    "wanNetworkInterfaceName": {
       "type": "string"
     },
-    "secondNetworkInterfaceName": {
+    "lanNetworkInterfacename": {
       "type": "string"
     },
     "virtualMachineSize": {
@@ -94,7 +94,7 @@
               "networkProfile": {
                   "networkInterfaces": [
                         {
-                          "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]",
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('wanNetworkInterfaceName'))]",
                           "properties": {
                               "primary": true
                             }
@@ -103,7 +103,7 @@
                           "properties": {
                               "primary": false
                             },
-                          "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('secondNetworkInterfaceName'))]"
+                          "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('lanNetworkInterfacename'))]"
                         }
                     ]
                 }

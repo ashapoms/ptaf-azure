@@ -182,11 +182,12 @@
      "lanNetworkInterfaceName": "ptaf-ni-lan",
      "networkSecurityGroupName": "ptaf-nsg",
      "deploymentName": "ptaf-deploy",
-     "dnsPrefix":"[concat(parameters('dnsLabelPrefix'),uniquestring(resourceGroup().id, deployment().name))]",
+     "dnsPrefix": "[concat(parameters('dnsLabelPrefix'),uniquestring(resourceGroup().id, deployment().name))]",
      "singleQuote": "'",
      "extensionCommand": "[concat('sh -c ', variables('singleQuote'), './network_settings.sh ', parameters('virtualMachineName'), variables('singleQuote'))]",
      "commandsUris": ["[concat(parameters('baseUrl'), '/scripts/network_settings.sh')]"],
      "storageAccountTemplateUrl": "[concat(parameters('baseUrl'), '/ptaf-storage-account-', parameters('newOrExistingStorageAccount'),'.json')]",
+     "virtualNetworkTemplateUrl": "[concat(parameters('baseUrl'), '/ptaf-network-', parameters('newOrExistingVirtualNetwork'), '.json')]",
      "vmTemplateUrl": "[concat(parameters('baseUrl'), '/ptaf-vm-', parameters('authenticationType'),'.json')]"
   },
   "resources": [
@@ -307,7 +308,7 @@
             "properties": {
                 "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
                 "dnsSettings": {
-                    "domainNameLabel": "[parameters('dnsPrefix')]"
+                    "domainNameLabel": "[variables('dnsPrefix')]"
                  }
             }
         },
@@ -315,7 +316,6 @@
             "name": "virtualNetworkSetup",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
-            "condition": "",
             "properties": {
               "templateLink": {
                 "uri": "[variables('virtualNetworkTemplateUrl')]",
@@ -372,7 +372,7 @@
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddressName'))]"
                             },
                             "subnet": {
-                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName')), '/subnets/', parameters('wanName'))]"
+                                "id": "[concat(reference('virtualNetworkSetup').outputs.virtualNetworkId.value, '/subnets/', parameters('wanName'))]"
                             }
                         }
                     }
@@ -397,7 +397,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "subnet": {
-                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName')), '/subnets/', parameters('lanName'))]"
+                                "id": "[concat(reference('virtualNetworkSetup').outputs.virtualNetworkId.value, '/subnets/', parameters('lanName'))]"
                             }
                         }
                     }
