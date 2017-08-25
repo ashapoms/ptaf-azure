@@ -54,7 +54,56 @@
                "constraints": {
                    "allowedTypes": ["Standard_LRS"]
                }
-            }
+            },
+            {
+              "name": "newVirtualNetwork",
+              "type": "Microsoft.Network.VirtualNetworkCombo",
+              "label": {
+                "virtualNetwork": "Virtual network",
+                "subnets": "Subnets"
+              },
+              "toolTip": {
+                "virtualNetwork": "Virtual network for PT AF",
+                "subnets": "WAN and LAN subnets for PT AF vm"
+              },
+              "defaultValue": {
+                "name": "ptaf-vnet",
+                "addressPrefixSize": "/16"
+              },
+              "constraints": {
+                "minAddressPrefixSize": "/16"
+              },
+              "options": {
+                "hideExisting": false
+              },
+              "subnets": {
+                "wan": {
+                  "label": "WAN subnet",
+                  "defaultValue": {
+                    "name": "WAN",
+                    "addressPrefixSize": "/24"
+                  },
+                  "constraints": {
+                    "minAddressPrefixSize": "/24",
+                    "minAddressCount": 0,
+                    "requireContiguousAddresses": true
+                  }
+                },
+                "lan": {
+                  "label": "LAN subnet",
+                  "defaultValue": {
+                    "name": "LAN",
+                    "addressPrefixSize": "/24"
+                  },
+                  "constraints": {
+                    "minAddressPrefixSize": "/24",
+                    "minAddressCount": 0,
+                    "requireContiguousAddresses": true
+                  }
+                }
+              },
+              "visible": true
+          }
         ]
       },
       {
@@ -146,6 +195,14 @@
       "authenticationType": "[basics('SSHCredentials').authenticationType]",
       "sshKey": "[basics('SSHCredentials').sshPublicKey]",
       "virtualMachineSize": "[steps('PtafConfig').virtualMachineSize]",
+      "virtualNetworkExistingRG": "[steps('envconfig').newVirtualNetwork.resourceGroup]",
+      "vnetName": "[steps('envconfig').newVirtualNetwork.name]",
+      "newOrExistingVirtualNetwork": "[steps('envconfig').newVirtualNetwork.newOrExisting]",
+      "vnetMask": "[first(steps('envconfig').newVirtualNetwork.addressPrefixes)]",
+      "wanAddtessPrefix": "[steps('envconfig').newVirtualNetwork.subnets.wan.addressPrefix]",
+      "lanAddtessPrefix": "[steps('envconfig').newVirtualNetwork.subnets.lan.addressPrefix]",
+      "lanName": "[steps('envconfig').newVirtualNetwork.subnets.lan.name]",
+      "wanName": "[steps('envconfig').newVirtualNetwork.subnets.lan.name]",
       "location": "[location()]"
     }
   }
