@@ -329,6 +329,9 @@
                   "virtualNetworkExistingRG": {
                      "value": "[parameters('virtualNetworkExistingRG')]"
                   },
+                  "networkSecurityGroupName": {
+                     "value": "[variables('networkSecurityGroupName')]"
+                  },
                   "vnetName": {
                       "value": "[parameters('vnetName')]"
                   },

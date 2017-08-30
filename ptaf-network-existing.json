@@ -12,6 +12,9 @@
           "description": "virtualNetwork Account's Resource Group"
           }
       },
+      "networkSecurityGroupName": {
+          "type": "string"
+      },
       "vnetName": {
           "type": "string",
           "defaultValue": "ptaf-vnet",
