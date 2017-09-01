@@ -1,6 +1,7 @@
 #!/bin/bash
 
 HOSTNAME=$1
+LICENSE=$2
 
 #delete azcesd if exists
 if [ -n "$(apt-cache search azure-security)" ]; then
@@ -36,3 +37,7 @@ user deactivate apic
 config sync
 
 EOF
+
+if [ -n "${LICENSE}" ]; then
+    curl -k "https://localhost:8443/license/get_config/?license_token=${LICENSE}"
+fi

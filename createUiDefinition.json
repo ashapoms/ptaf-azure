@@ -178,6 +178,17 @@
               "offer": "ptaf-vm-preview",
               "sku": "byol"
             }
+          },
+          {
+            "name": "License",
+            "type": "Microsoft.Common.TextBox",
+            "label": "PT AF license",
+            "defaultValue": "",
+            "toolTip": "PT AF license key. You can left it empty and apply your license later",
+            "constraints": {
+              "required": false
+            },
+            "visible": true
           }
         ]
       }
@@ -203,6 +214,7 @@
       "lanAddtessPrefix": "[steps('envconfig').newVirtualNetwork.subnets.lan.addressPrefix]",
       "lanName": "[steps('envconfig').newVirtualNetwork.subnets.lan.name]",
       "wanName": "[steps('envconfig').newVirtualNetwork.subnets.lan.name]",
+      "license": "[steps('PtafConfig').License]",
       "location": "[location()]"
     }
   }

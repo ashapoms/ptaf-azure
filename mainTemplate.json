@@ -163,6 +163,13 @@
               "description": "Password for admin username"
           }
       },
+      "license": {
+        "type": "securestring",
+        "defaultValue": "",
+        "metadata": {
+            "description": "PT AF license key. You can left it empty and apply your license later"
+          }
+      },
       "baseUrl": {
         "type": "string",
         "metadata": {
@@ -184,7 +191,7 @@
      "deploymentName": "ptaf-deploy",
      "dnsPrefix": "[concat(parameters('dnsLabelPrefix'),uniquestring(resourceGroup().id, deployment().name))]",
      "singleQuote": "'",
-     "extensionCommand": "[concat('sh -c ', variables('singleQuote'), './network_settings.sh ', parameters('virtualMachineName'), variables('singleQuote'))]",
+     "extensionCommand": "[concat('sh -c ', variables('singleQuote'), './network_settings.sh ', parameters('virtualMachineName'), ' ', parameters('license'), variables('singleQuote'))]",
      "commandsUris": ["[concat(parameters('baseUrl'), '/scripts/network_settings.sh')]"],
      "storageAccountTemplateUrl": "[concat(parameters('baseUrl'), '/ptaf-storage-account-', parameters('newOrExistingStorageAccount'),'.json')]",
      "virtualNetworkTemplateUrl": "[concat(parameters('baseUrl'), '/ptaf-network-', parameters('newOrExistingVirtualNetwork'), '.json')]",
