@@ -322,7 +322,7 @@
         {
             "name": "virtualNetworkSetup",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2015-11-01",
             "properties": {
               "templateLink": {
                 "uri": "[variables('virtualNetworkTemplateUrl')]",
