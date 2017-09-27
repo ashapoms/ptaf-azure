@@ -323,6 +323,9 @@
             "name": "virtualNetworkSetup",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2015-11-01",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+            ],
             "properties": {
               "templateLink": {
                 "uri": "[variables('virtualNetworkTemplateUrl')]",
