@@ -213,7 +213,7 @@
       "wanAddressPrefix": "[steps('envconfig').newVirtualNetwork.subnets.wan.addressPrefix]",
       "lanAddressPrefix": "[steps('envconfig').newVirtualNetwork.subnets.lan.addressPrefix]",
       "lanName": "[steps('envconfig').newVirtualNetwork.subnets.lan.name]",
-      "wanName": "[steps('envconfig').newVirtualNetwork.subnets.lan.name]",
+      "wanName": "[steps('envconfig').newVirtualNetwork.subnets.wan.name]",
       "license": "[steps('PtafConfig').License]",
       "location": "[location()]"
     }
