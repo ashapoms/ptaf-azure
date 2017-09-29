@@ -5,7 +5,7 @@ import requests
 
 
 AUTH_HEADER = {'Authorization': 'Basic YXBpYzpwMHMxdDF2Mw=='}
-API_ROOT = 'https://40.76.50.33:8443/api/waf/v2/'
+API_ROOT = 'https://localhost:8443/api/waf/v2/'
 
 
 def endpoint(name):
@@ -37,12 +37,6 @@ def alias_by_name(name):
 
 
 def gateway_id():
-    print(json.loads(
-        requests.get(
-            endpoint('gateways'),
-            headers=AUTH_HEADER,
-            verify=False
-        ).content))
     return json.loads(
         requests.get(
             endpoint('gateways'),

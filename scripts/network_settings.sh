@@ -29,6 +29,7 @@ config sync
 
 EOF
 
+chmod +x ./ptaf_api_settings.py
 ./ptaf_api_settings.py
 
 /usr/local/bin/wsc -e <<EOF
