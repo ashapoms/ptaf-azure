@@ -29,7 +29,7 @@ config sync
 
 EOF
 
-/opt/waf/data/waf-tools/waf_rest_configure.py
+./ptaf_api_settings.py
 
 /usr/local/bin/wsc -e <<EOF
 
