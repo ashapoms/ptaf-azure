@@ -79,5 +79,5 @@ def activate_gateway(gateway_id):
 if __name__ == '__main__':
     gateway = gateway_id()
     mgmt = alias_by_name('mgmt')
-    attach_alias(gateway, 'eth0', mgmt)
-    activate_gateway(gateway)
+    print(attach_alias(gateway, 'eth0', mgmt))
+    print(activate_gateway(gateway))
