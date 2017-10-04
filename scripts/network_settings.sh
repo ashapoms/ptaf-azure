@@ -32,12 +32,9 @@ EOF
 chmod +x ./ptaf_api_settings.py
 ./ptaf_api_settings.py
 
-/usr/local/bin/wsc -e <<EOF
+echo 'db.users.update({login: "apic"}, {$set: {active: "false"}})' \
+   | mongo waf -u root -p $(wsc -c "password list") --authenticationDatabase admin
 
-user deactivate apic
-config sync
-
-EOF
 
 if [ -n "${LICENSE}" ]; then
     curl -k "https://localhost:8443/license/get_config/?license_token=${LICENSE}"
