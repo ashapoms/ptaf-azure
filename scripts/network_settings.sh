@@ -41,9 +41,10 @@ chmod +x ./ptaf_api_settings.py
 ./ptaf_api_settings.py
 
 echo 'db.users.update({login: "apic"}, {$set: {active: "false"}})' \
-   | mongo waf -u root -p $(wsc -c "password list") --authenticationDatabase admin
+   | mongo waf -u root -p $(/usr/local/bin/wsc -c "password list") --authenticationDatabase admin
 
 
 if [ -n "${LICENSE}" ]; then
-    curl -k "https://localhost:8443/license/get_config/?license_token=${LICENSE}"
+    curl -k "https://localhost:8443/license/get_config/?license_token=${LICENSE}" || exit 0
 fi
+

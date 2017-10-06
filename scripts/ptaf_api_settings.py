@@ -46,17 +46,19 @@ def gateway_id():
     )['items'][0]['id']
 
 
-def attach_alias(gateway, interface, alias):
+def attach_alias(gateway, interface, aliases):
     return json.loads(
         requests.patch(
             endpoint(
-                'gateways/{gateway}/intefaces/{interface}'.format(
+                'gateways/{gateway}/interfaces/{interface}'.format(
                     gateway=gateway,
                     interface=interface
                 )
             ),
             headers=AUTH_HEADER,
-            json={'aliaces': alias},
+            json={
+                'aliases': aliases if isinstance(aliases, list) else [aliases]
+            },
             verify=False
         ).content
     )
@@ -79,5 +81,8 @@ def activate_gateway(gateway_id):
 if __name__ == '__main__':
     gateway = gateway_id()
     mgmt = alias_by_name('mgmt')
-    print(attach_alias(gateway, 'eth0', mgmt))
+    wan = alias_by_name('wan')
+    lan = alias_by_name('lan')
+    print(attach_alias(gateway, 'eth0', [mgmt, wan]))
+    print(attach_alias(gateway, 'eth1', wan))
     print(activate_gateway(gateway))
