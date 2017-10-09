@@ -84,5 +84,5 @@ if __name__ == '__main__':
     wan = alias_by_name('wan')
     lan = alias_by_name('lan')
     print(attach_alias(gateway, 'eth0', [mgmt, wan]))
-    print(attach_alias(gateway, 'eth1', wan))
+    print(attach_alias(gateway, 'eth1', lan))
     print(activate_gateway(gateway))
