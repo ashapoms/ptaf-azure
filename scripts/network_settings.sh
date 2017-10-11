@@ -43,11 +43,12 @@ chmod +x ./ptaf_api_settings.py
 echo 'db.users.update({login: "apic"}, {$set: {active: "false"}})' \
    | mongo waf -u root -p $(/usr/local/bin/wsc -c "password list") --authenticationDatabase admin
 
-
-while [ $(ps aux | grep "/usr/bin/uwsgi --ini /usr/share/uwsgi/conf/default.ini --xmlconfig /etc/uwsgi/apps-enabled/ui.xml --daemonize /var/log/uwsgi/app/ui.log" | wc -l) -lt 5 ]; do
+sleep 20
+while [ $(ps aux | grep "/usr/bin/uwsgi --ini /usr/share/uwsgi/conf/default.ini --xmlconfig /etc/uwsgi/apps-enabled/ui.xml --daemonize /var/log/uwsgi/app/ui.log" | wc -l) -lt 5 ]nano; do
     sleep 1
 done
 
+echo "ui service is up"
 
 if [ -n "${LICENSE}" ]; then
     curl -k "https://localhost:8443/license/get_config/?license_token=${LICENSE}" || exit 0
