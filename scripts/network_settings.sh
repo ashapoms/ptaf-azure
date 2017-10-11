@@ -44,6 +44,11 @@ echo 'db.users.update({login: "apic"}, {$set: {active: "false"}})' \
    | mongo waf -u root -p $(/usr/local/bin/wsc -c "password list") --authenticationDatabase admin
 
 
+while [ $(ps aux | grep "/usr/bin/uwsgi --ini /usr/share/uwsgi/conf/default.ini --xmlconfig /etc/uwsgi/apps-enabled/ui.xml --daemonize /var/log/uwsgi/app/ui.log" | wc -l) -lt 5 ]; do
+    sleep 1
+done
+
+
 if [ -n "${LICENSE}" ]; then
     curl -k "https://localhost:8443/license/get_config/?license_token=${LICENSE}" || exit 0
 fi
