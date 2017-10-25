@@ -8,6 +8,10 @@ if [ -n "$(apt-cache search azure-security)" ]; then
     apt-get purge -y azure-security
 fi
 
+rm /opt/waf/conf/wsc/snapshots/default.sqlite3 || echo 'wsc snapshot does not exist'
+rm /opt/waf/conf/wsc/config.sqlite3 || echo 'wsc snapshot does not exist'
+/opt/waf/artifacts/make_net_persistent_rules_on_first_boot.sh
+
 WSC_MGMT_INTERFACE=eth0 WSC_WAN_INTERFACE=eth0 WSC_LAN_INTERFACE=eth1 \
 /usr/local/bin/wsc -e <<EOF
 
