@@ -32,7 +32,7 @@ if mark eth0
 if mark eth1
 if mark lo:0
 
-
+feature set azure_byol true
 integration_mode reverse_proxy
 
 config commit
