@@ -11,12 +11,11 @@ fi
 rm /opt/waf/conf/wsc/snapshots/default.sqlite3 || echo 'wsc snapshot does not exist'
 rm /opt/waf/conf/wsc/config.sqlite3 || echo 'wsc snapshot does not exist'
 
- sed -i "s/LICENSE_SERVER_REST_API.*/LICENSE_SERVER_REST_API = 'https://ptaf-license.ptsecurity.com/api/v3/g" \
+sed -i "s@LICENSE_SERVER_REST_API.*@LICENSE_SERVER_REST_API = 'https://ptaf-license.ptsecurity.com/api/v3'@g" \
         /opt/waf/python/lib/python2.7/site-packages/ui/config.py
 
 
-sed -i "s/\/opt/waf/artifacts/.*/ /g" \
-        /etc/rc.local
+sed -i "s@/opt/waf/artifacts/.*@ @g" /etc/rc.local
 
 
 
