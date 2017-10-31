@@ -180,10 +180,10 @@
       }
     },
   "variables": {
-     "imagePublisher": "ptsecurity",
-     "imageSku" : "byol",
-     "imageOffer" : "ptaf-vm-preview",
-     "imageVersion": "3.6.5",
+     "imagePublisher": "PositiveTechnologies",
+     "imageSku" : "PTAF",
+     "imageOffer" : "PTApplicationFirewall",
+     "imageVersion": "latest",
      "publicIPAddressType": "Static",
      "wanNetworkInterfaceName": "ptaf-ni-wan",
      "lanNetworkInterfaceName": "ptaf-ni-lan",
